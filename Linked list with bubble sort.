@@ -1,0 +1,100 @@
+/ Example program
+#include <iostream>
+using namespace std;
+class node{
+    public:
+    int data;
+    node* next;
+    node()
+        {
+            data=0;
+            next=NULL;
+        }
+};
+class list{
+    public:
+    node* head;
+    node* tail;
+    void display(node *temp);
+    void insert(int x);
+    node* find(int n);
+    void bubblesort(node *temp);
+        list()
+            {
+                head=NULL;
+                tail=NULL;
+            }
+    
+};
+void list::bubblesort(node *temp)
+  {
+    int count=0;
+    int hold;
+    node *slider=head;
+    while(slider!=NULL)
+        {
+          count++;
+          slider=slider->next;
+        }
+        for(int i=0;i<count;i++)
+        {
+              for(int k=1;k<count-i;k++)
+                {
+               if(find(k)->data>find(k+1)->data)
+                 {
+                    hold=find(k)->data;
+                    find(k)->data=find(k+1)->data;
+                    find(k+1)->data=hold;
+                 }
+                }
+        }
+}
+void list::display(node *temp)
+{
+    node *slider=temp;
+    while(slider!=NULL)
+        {
+            cout<<slider->data;
+            cout<<" ";
+            slider=slider->next;
+        }
+}
+void list::insert(int x)
+{   
+    node *temp=new node;
+    temp->data=x;
+    if(head==NULL)
+            {
+                head=tail=temp;
+            }
+    else
+            {
+                tail->next=temp;
+                tail=tail->next;
+            }
+}
+node* list::find(int x)
+{
+    node *slider=head;
+    for(int i=1;i<x;i++)
+        slider=slider->next;
+    return slider;
+}
+int main()
+    {
+        list l;
+        l.insert(23);
+        l.insert(43);
+        l.insert(5);
+        l.insert(76);
+        l.insert(31);
+        l.insert(1);
+        l.insert(87);
+        l.insert(54);
+        l.insert(32);
+        l.display(l.head);
+        cout<<endl;
+        l.bubblesort(l.head);
+        l.display(l.head);
+        return 0;
+    }
